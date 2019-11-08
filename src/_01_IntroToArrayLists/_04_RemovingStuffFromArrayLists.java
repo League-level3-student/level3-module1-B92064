@@ -46,7 +46,7 @@ public class _04_RemovingStuffFromArrayLists {
 		
 		
 		System.out.println(stuffIFoundInTheYard.size()); // should be 2
-
+System.out.println();
 		ArrayList<Character> truth = new ArrayList<Character>();
 		truth.add('c');
 		truth.add('a');
@@ -81,14 +81,19 @@ public class _04_RemovingStuffFromArrayLists {
 		truth.add('#');
 		/* TODO 2: Remove the hash symbols and print out the truth. */
 
-		for(int i =truth.size(); i > 0; i--) {
-			if(truth.get(i-1).equals("#")) {
-				truth.remove(i-1);
+		for(int i =0; i <truth.size(); i++) {
+			if(truth.get(i).equals('#')) {
+				truth.remove(i);
 				
 			}
 			//run the syso backwards so that california is warmer goes from top down
-			System.out.println(truth.get(i-1));
+			// but then it says warmer is california. Unfortunately, this isn't a program for yoda
+			
 		}
+		for (int i = 0; i < truth.size(); i++) {
+			System.out.print(truth.get(i));
+		}
+		
 		
 	}
 }
