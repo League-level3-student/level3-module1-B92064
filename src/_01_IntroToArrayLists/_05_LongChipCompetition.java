@@ -17,10 +17,20 @@ public class _05_LongChipCompetition {
 	public static void main(String[] args) {
 		_05_LongChipCompetition lcc = new _05_LongChipCompetition();
 		lcc.initializeBeatles();
-		int highest;
-		for(int i = 0; i<4; i++) {
+		double highest = 0;
+		String name = "";
+		for(int i = 0; i<lcc.getTheBand().size(); i++) {
+			for(int k = 0; k < lcc.getTheBand().get(i).getChips().size(); k++) {
+				double chiplength =lcc.getTheBand().get(i).getChips().get(k).getLength();
+				if(chiplength > highest) {
+				
+					highest = chiplength;
+					name = lcc.getTheBand().get(i).getName();
+				}
+			}
 			
 		}
+		System.out.println(name);
 	}
 	
 	private void initializeBeatles() {
