@@ -20,7 +20,7 @@ public class _06_IPodShuffle implements ActionListener{
 	JButton b3 = new JButton();
 	Random rand = new Random();
 	int r1 = rand.nextInt(5);
-	
+	static ArrayList<Song> jukebox = new ArrayList<Song>(); 
 	public _06_IPodShuffle() {
 		// 1. Use the Song class the play the demo.mp3 file.
 				
@@ -38,9 +38,20 @@ public class _06_IPodShuffle implements ActionListener{
 	
 	public static void main(String[] args) {
 		
-		  new _06_IPodShuffle(); Song demo = new Song("demo.mp3"); Song Ra = new
-		  Song("Rick Astley - Never Gonna Give You Up (Video).mp3");
-		 
+		  new _06_IPodShuffle(); 
+		  
+		  Song demo = new Song("demo.mp3"); 
+		  Song Ra = new Song("Rick Astley - Never Gonna Give You Up (Video).mp3");
+		  Song MI = new Song("Monsters Inc Theme (EAR RAPE).mp3");
+		  Song NS = new Song("Why cant you handle the neutron style.mp3");
+		  Song SPM = new Song("Sad Piano Music (THIS WILL MAKE YOU CRY Saddest Piano and Violin Ever!).mp3");
+		  
+		  jukebox.add(demo);
+		  jukebox.add(Ra);
+		  jukebox.add(MI);
+		  jukebox.add(NS);
+		  jukebox.add(SPM);
+		  
 				
 //		demo.setDuration(147);
 //		demo.play();
@@ -69,10 +80,14 @@ public class _06_IPodShuffle implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		for(int i = 0; i<5; i++) {
+			jukebox.get(i).stop();
+		}
 		if(e.getSource()== b1) {
-			
+			jukebox.get(1);
 		} else if(e.getSource() == b2) {
-			r1 = rand.nextInt(5);
+			r1 = rand.nextInt(4);
+			jukebox.get(r1);
 			
 		} else if(e.getSource() == b3) {
 			
