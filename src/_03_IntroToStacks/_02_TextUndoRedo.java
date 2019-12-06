@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class _02_TextUndoRedo implements KeyListener {
 	/* 
@@ -26,6 +28,7 @@ public class _02_TextUndoRedo implements KeyListener {
 	static JFrame J = new JFrame();
 	static JPanel P = new JPanel();
 	static JLabel L = new JLabel();
+	Stack<String> s = new Stack<String>();
 	
 	public static void main(String[] args) {
 		_02_TextUndoRedo t = new _02_TextUndoRedo();
@@ -47,10 +50,12 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		int ll = L.getText().length()-1;
 		char c = e.getKeyChar();
 		L.setText(L.getText() + c);
+		
 		if(e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-			L.remove(L.getText().length()-1);
+			L.setText(L.getText().substring(0, ll));
 		}
 	}
 
