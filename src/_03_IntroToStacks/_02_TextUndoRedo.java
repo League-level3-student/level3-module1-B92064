@@ -55,7 +55,11 @@ public class _02_TextUndoRedo implements KeyListener {
 		L.setText(L.getText() + c);
 		
 		if(e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+			String s = L.getText().substring(0, ll);
 			L.setText(L.getText().substring(0, ll));
+		}
+		if(e.getKeyChar() == KeyEvent.VK_CAPS_LOCK) {
+			L.setText(L.getText() + s);
 		}
 	}
 
