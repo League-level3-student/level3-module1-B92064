@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -50,17 +51,24 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getKeyChar() == KeyEvent.VK_SLASH) {
+			L.setText(L.getText() + s.pop());
+			s.clear();
+		} else if (e.getKeyChar() != KeyEvent.VK_SLASH) {
+			
 		int ll = L.getText().length()-1;
 		char c = e.getKeyChar();
 		L.setText(L.getText() + c);
 		
 		if(e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-			String s = L.getText().substring(0, ll);
+			String o = L.getText().substring(0, ll);
+			s.clear();
+			s.add(o);
 			L.setText(L.getText().substring(0, ll));
 		}
-		if(e.getKeyChar() == KeyEvent.VK_CAPS_LOCK) {
-			L.setText(L.getText() + s);
+		
 		}
+		
 	}
 
 	@Override
@@ -75,8 +83,5 @@ public class _02_TextUndoRedo implements KeyListener {
 		
 	}
 		
-	
-
-
 	
 }
