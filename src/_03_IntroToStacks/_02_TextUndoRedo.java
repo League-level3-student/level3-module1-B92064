@@ -29,7 +29,7 @@ public class _02_TextUndoRedo implements KeyListener {
 	static JFrame J = new JFrame();
 	static JPanel P = new JPanel();
 	static JLabel L = new JLabel();
-	Stack<String> s = new Stack<String>();
+	Stack<Character> s = new Stack<Character>();
 	
 	public static void main(String[] args) {
 		_02_TextUndoRedo t = new _02_TextUndoRedo();
@@ -53,7 +53,6 @@ public class _02_TextUndoRedo implements KeyListener {
 		// TODO Auto-generated method stub
 		if(e.getKeyChar() == KeyEvent.VK_SLASH) {
 			L.setText(L.getText() + s.pop());
-			s.clear();
 		} else if (e.getKeyChar() != KeyEvent.VK_SLASH) {
 			
 		int ll = L.getText().length()-1;
@@ -61,10 +60,9 @@ public class _02_TextUndoRedo implements KeyListener {
 		L.setText(L.getText() + c);
 		
 		if(e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+			s.add(L.getText().charAt(ll));
 			String o = L.getText().substring(0, ll);
-			s.clear();
-			s.add(o);
-			L.setText(L.getText().substring(0, ll));
+			L.setText(o);
 		}
 		
 		}
