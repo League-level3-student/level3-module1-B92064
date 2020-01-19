@@ -18,11 +18,7 @@ private int[] values;
 		//A. iterate through the keys. If you find a key that matches
 		//   the passed in String, set the value at that location to the
 		//   passed in value and return from the method.
-		for(int i = 0; i< keys.length -1; i++) {
-			if(keys.equals(key)) {
-				valuearr = value;
-			}
-		}
+	
 		//B. create a String array that is one element longer than the keys
 		
 		//C. create an integer array that is one element longer than values

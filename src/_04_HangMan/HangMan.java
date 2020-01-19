@@ -14,14 +14,22 @@ public class HangMan implements KeyListener{
 	static JFrame J = new JFrame();
 	static JPanel P = new JPanel();
 	static JLabel L = new JLabel();
-	Stack<String> s = new Stack<String>();
+	
+	static int words;
+	
+	static Stack<String> strings = new Stack<String>();
 	
 	public static void main(String[] args) {
-		String wordAmount = JOptionPane.showInputDialog("Welcome to Hangman! /n" + "How many words would you like to guess?");
 		HangMan h = new HangMan();
+		Utilities utilities = new Utilities();
 		
+		String wordAmount = JOptionPane.showInputDialog("Welcome to Hangman!" + "/n" + "How many words would you like to guess?");
+		
+		words = Integer.parseInt(wordAmount);
+		for(int r =0 ; r < words; r++) {
+		strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
+		}
 		h.setup();
-		
 	}
 	
 	void setup() {
