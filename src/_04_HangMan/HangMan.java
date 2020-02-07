@@ -18,10 +18,12 @@ public class HangMan implements KeyListener{
 	static int numWords;
 	static int lives = 10;
 	static int numChar;
+	static int wordNum  = 0;
 	
 	static String spaces = "";
 	static String word;
 	
+	static boolean lifeBool;
 	
 	static Stack<String> strings = new Stack<String>();
 	
@@ -47,7 +49,7 @@ public class HangMan implements KeyListener{
 		for(int i = 0; i < numChar; i++) {
 			spaces =  spaces + "_ ";
 		}
-		L.setText(spaces + "Lives left: " + lives);
+		L.setText(spaces + "    Lives left: " + lives);
 		J.pack();
 		J.setSize(500, 400);
 		J.setLocation(750, 300);
@@ -63,16 +65,41 @@ public class HangMan implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		/*if(lives == 0) {
+			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was "+ word);
+		}*/
+		lifeBool = false;
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
 		for(int i = 0; i < word.length(); i++) {
 			if(c == word.charAt(i)) {
 				spaces = spaces.substring(0, i*2) + word.charAt(i) + spaces.substring(i*2+1 , spaces.length());
-				L.setText(spaces + "Lives left: " + lives);
-			} else if(c != word.charAt(i)) {
-				lives--;
+				L.setText(spaces + "    Lives left: " + lives);
+				lifeBool = true;
+				
+			}
+			spaces = spaces.replace("_", null);
+			if(spaces.equalsIgnoreCase(word)) {
+				wordNum++;
+				JOptionPane.showMessageDialog(null, "Good Job! Now onto the next word!");
+			
+				//this is where a new word needs to pop up
 			}
 			
+			//else if(c != word.charAt(i)) {
+			//	lives--;
+				//change - takes lives off even if correct character is pressed, and if character is held down lives are still taken off.
+				//I see - it took lives off with every run-through the for-loop
+			
+		//	}
+			
+		}
+		if(lifeBool != true) {
+			lives--;
+			L.setText(spaces + "    Lives left: " + lives);
+		}
+		if(lives == 0) {
+			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was "+ word);
 		}
 		
 		//make sure to set numChar to the new word once someone has filled in all the blanks
