@@ -9,45 +9,49 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class HangMan implements KeyListener{
-	
+public class HangMan implements KeyListener {
+
 	static JFrame J = new JFrame();
 	static JPanel P = new JPanel();
 	static JLabel L = new JLabel();
-	
+
 	static int numWords;
 	static int lives = 10;
 	static int numChar;
-	static int wordNum  = 0;
-	
+	static int wordNum = 0;
+	static int level = 0;
+
 	static String spaces = "";
 	static String word;
-	
+	static String checker = "";
+
 	static boolean lifeBool;
-	
+
 	static Stack<String> strings = new Stack<String>();
-	
+
 	public static void main(String[] args) {
 		HangMan h = new HangMan();
 		Utilities utilities = new Utilities();
-		
-		String wordAmount = JOptionPane.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
-		
+
+		String wordAmount = JOptionPane
+				.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+
 		numWords = Integer.parseInt(wordAmount);
-		for(int r =0 ; r < numWords; r++) {
-		strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
+		for (int r = 0; r < numWords; r++) {
+			strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
 		}
 		h.setup();
 	}
-	
+
 	void setup() {
 		J.add(P);
 		P.add(L);
-		numChar = strings.get(0).length();
-		word = strings.get(0);
+		numChar = strings.get(level).length();
+		word = strings.get(level);
 		System.out.println(word);
-		for(int i = 0; i < numChar; i++) {
-			spaces =  spaces + "_ ";
+		for (int i = 0; i < numChar; i++) {
+			spaces = spaces + "_ ";
+			checker = checker + ' ';
 		}
 		L.setText(spaces + "    Lives left: " + lives);
 		J.pack();
@@ -60,55 +64,54 @@ public class HangMan implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		/*if(lives == 0) {
-			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was "+ word);
-		}*/
 		lifeBool = false;
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		for(int i = 0; i < word.length(); i++) {
-			if(c == word.charAt(i)) {
-				spaces = spaces.substring(0, i*2) + word.charAt(i) + spaces.substring(i*2+1 , spaces.length());
+		for (int i = 0; i < word.length(); i++) {
+			if (c == word.charAt(i)) {
+				spaces = spaces.substring(0, i * 2) + word.charAt(i) + spaces.substring(i * 2 + 1, spaces.length());
 				L.setText(spaces + "    Lives left: " + lives);
 				lifeBool = true;
-				
+
 			}
-			spaces = spaces.replace("_", null);
-			if(spaces.equalsIgnoreCase(word)) {
-				wordNum++;
-				JOptionPane.showMessageDialog(null, "Good Job! Now onto the next word!");
-			
-				//this is where a new word needs to pop up
-			}
-			
-			//else if(c != word.charAt(i)) {
-			//	lives--;
-				//change - takes lives off even if correct character is pressed, and if character is held down lives are still taken off.
-				//I see - it took lives off with every run-through the for-loop
-			
-		//	}
-			
+
 		}
-		if(lifeBool != true) {
+		for (int k = 0; k < spaces.length(); k += 2) {
+			checker = checker.substring(0, k) + c + checker.substring(k + 1, checker.length()-1);
+			System.out.println(checker);
+		}
+		if (checker.equalsIgnoreCase(word)) {
+			level++;
+			numChar = 0;
+			JOptionPane.showMessageDialog(null, "Nice Job! You Passed!");
+			numChar = strings.get(level).length();
+			word = strings.get(level);
+			System.out.println(word);
+			for (int k = 0; k < numChar; k++) {
+				spaces = spaces + "_ ";
+			}
+			L.setText(spaces + "    Lives left: " + lives);
+			J.pack();
+		}
+		if (lifeBool != true) {
 			lives--;
 			L.setText(spaces + "    Lives left: " + lives);
 		}
-		if(lives == 0) {
-			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was "+ word);
+		if (lives == 0) {
+			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was " + word);
 		}
-		
-		//make sure to set numChar to the new word once someone has filled in all the blanks
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
