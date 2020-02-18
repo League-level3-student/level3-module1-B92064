@@ -26,6 +26,7 @@ public class HangMan implements KeyListener {
 	static String checker = "";
 
 	static boolean lifeBool;
+	static boolean isNum;
 
 	static Stack<String> strings = new Stack<String>();
 
@@ -36,7 +37,29 @@ public class HangMan implements KeyListener {
 		String wordAmount = JOptionPane
 				.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
 
-		numWords = Integer.parseInt(wordAmount);
+		while (isNum == false) {
+			// checks whether wordAmount is between 0 and 266
+			if (numWords == 0 || numWords >= 267 || numWords < 0) {
+				JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
+				wordAmount = JOptionPane
+						.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+			} else if(numWords < 0 & numWords <= 266) {
+				isNum = true;
+			}
+
+			// checks whether wordAmount is a int
+			if (isNum == false) {
+				if (digitChecker(wordAmount) == true) {
+					numWords = Integer.parseInt(wordAmount);
+					isNum = true;
+				} else if (digitChecker(wordAmount) == false) {
+					JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
+					wordAmount = JOptionPane
+							.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+				}
+			}
+		}
+
 		for (int r = 0; r < numWords; r++) {
 			strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
 		}
@@ -82,13 +105,14 @@ public class HangMan implements KeyListener {
 
 		}
 		for (int k = 0; k < spaces.length(); k += 2) {
-			checker = checker.substring(0, k) + c + checker.substring(k + 1, checker.length()-1);
-			System.out.println(checker);
+			checker = checker + spaces.charAt(k);
 		}
 		if (checker.equalsIgnoreCase(word)) {
 			level++;
-			numChar = 0;
+			lives = 10;
 			JOptionPane.showMessageDialog(null, "Nice Job! You Passed!");
+			L.setText("");
+			spaces = "";
 			numChar = strings.get(level).length();
 			word = strings.get(level);
 			System.out.println(word);
@@ -97,6 +121,8 @@ public class HangMan implements KeyListener {
 			}
 			L.setText(spaces + "    Lives left: " + lives);
 			J.pack();
+		} else {
+			checker = "";
 		}
 		if (lifeBool != true) {
 			lives--;
@@ -114,4 +140,14 @@ public class HangMan implements KeyListener {
 
 	}
 
+	public static boolean digitChecker(String m) {
+		for (int i = 0; i < m.length(); i++) {
+			if (!Character.isDigit(m.charAt(i))) {
+				return false;
+			}
+
+		}
+		return true;
+
+	}
 }
