@@ -30,12 +30,13 @@ public class HangMan implements KeyListener {
 
 	static HangMan h = new HangMan();
 
-	//NEED TO POP OFF THE STACK
+	// NEED TO POP OFF THE STACK
 
 	static Stack<String> strings = new Stack<String>();
+	static Utilities utilities;
 
 	public static void main(String[] args) {
-		Utilities utilities = new Utilities();
+		utilities = new Utilities();
 		h.whichWord();
 		for (int r = 0; r < numWords; r++) {
 			strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
@@ -44,11 +45,12 @@ public class HangMan implements KeyListener {
 	}
 
 	void setup() {
+		lives = 10;
 		J.add(P);
 		P.add(L);
 		word = strings.pop();
 		numChar = word.length();
-		System.out.println(word);
+//		System.out.println(word);
 		for (int i = 0; i < numChar; i++) {
 			spaces = spaces + "_ ";
 			checker = checker + ' ';
@@ -88,33 +90,40 @@ public class HangMan implements KeyListener {
 			level++;
 			lives = 10;
 			JOptionPane.showMessageDialog(null, "Nice Job! You Passed!");
-			
+
 			if (level == numWords) {
 				JOptionPane.showMessageDialog(null, "You guessed all the words! Good job!");
 				int keepGoing = JOptionPane.showConfirmDialog(null, "Would you like to continue?");
-				System.out.println(keepGoing);
+//				System.out.println(keepGoing);
 				if (keepGoing == 1) {
 					System.exit(0);
 				} else if (keepGoing == 0) {
+					lives = 10;
 					level = 0;
 					spaces = "";
 					checker = "";
 					lifeBool = true;
 					h.whichWord();
+					for (int r = 0; r < numWords; r++) {
+						strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
+					}
 					h.setup();
+				} else if (keepGoing == 2) {
+					System.exit(0);
 				}
 			} else {
 
 				L.setText("");
 				spaces = "";
-				System.out.println("Level: " + level);
-				System.out.println("Number of Words: " + numWords);
+//				System.out.println("Level: " + level);
+//				System.out.println("Number of Words: " + numWords);
 				word = strings.pop();
 				numChar = word.length();
-				System.out.println(word);
+//				System.out.println(word);
 				for (int k = 0; k < numChar; k++) {
 					spaces = spaces + "_ ";
 				}
+				lives = 10;
 				L.setText(spaces + "    Lives left: " + lives);
 				J.pack();
 			}
@@ -127,6 +136,25 @@ public class HangMan implements KeyListener {
 		}
 		if (lives == 0) {
 			JOptionPane.showMessageDialog(null, "You ran out of lives!\nThe word was " + word);
+			int keepGoing = JOptionPane.showConfirmDialog(null, "Would you like to continue?");
+//			System.out.println(keepGoing);
+			if (keepGoing == 1) {
+				System.exit(0);
+			} else if (keepGoing == 0) {
+				lives = 10;
+				level = 0;
+				spaces = "";
+				checker = "";
+				lifeBool = true;
+				h.whichWord();
+				for (int r = 0; r < numWords; r++) {
+					strings.push(utilities.readRandomLineFromFile("dictionary.txt"));
+				}
+				h.setup();
+			} else if (keepGoing == 2) {
+				System.exit(0);
+			}
+
 		}
 
 	}
@@ -138,36 +166,42 @@ public class HangMan implements KeyListener {
 	}
 
 	public static void whichWord() {
-		String wordAmount = JOptionPane
-				.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
-
-		numWords = Integer.parseInt(wordAmount);
+		isNum = false;
 		while (isNum == false) {
-			// checks whether wordAmount is between 0 and 266
-			if (numWords < 1 || numWords > 266) {
-				JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
-				wordAmount = JOptionPane
-						.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
-			} else if (!wordAmount.isEmpty()) {
-				isNum = true;
-			}
+			String wordAmount = JOptionPane
+					.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+			
+			if (!wordAmount.isEmpty()) {
 
-			// checks whether wordAmount is a int
-			if (isNum == false) {
-				if (digitChecker(wordAmount) == true) {
-					numWords = Integer.parseInt(wordAmount);
-					if (!wordAmount.isEmpty()) {
-						isNum = true;
-					}
-				} else if (digitChecker(wordAmount) == false) {
+				// checks whether wordAmount is between 0 and 266
+				numWords = Integer.parseInt(wordAmount);
+				if (numWords < 1 || numWords > 266) {
 					JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
 					wordAmount = JOptionPane
 							.showInputDialog("Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+				} else if (!wordAmount.isEmpty()) {
+					isNum = true;
 				}
+
+				// checks whether wordAmount is a int
+				if (isNum == false) {
+					if (digitChecker(wordAmount) == true) {
+						numWords = Integer.parseInt(wordAmount);
+						if (!wordAmount.isEmpty()) {
+							isNum = true;
+						}
+					} else if (digitChecker(wordAmount) == false) {
+						JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
+						wordAmount = JOptionPane.showInputDialog(
+								"Welcome to Hangman!" + "\n" + "How many words would you like to guess?");
+					}
+				}
+
+			} else if (wordAmount.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please choose a number between 0 and 266");
 			}
 		}
 
-		
 	}
 
 	public static boolean digitChecker(String m) {
