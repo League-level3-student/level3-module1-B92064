@@ -11,8 +11,8 @@ public class StringIntegerPair {
 
 	StringIntegerPair() {
 		// 3. initialize both member arrays to a length of 0
-		String[] keys = new String[0];
-		int[] values = new int[0];
+		keys = new String[0];
+		values = new int[0];
 	}
 
 	// 4. Complete the steps in the put method
@@ -20,34 +20,33 @@ public class StringIntegerPair {
 		// A. iterate through the keys. If you find a key that matches
 		// the passed in String, set the value at that location to the
 		// passed in value and return from the method.
-		
-		for (int i = 0; i < keys.length-1; i++) {
+
+		for (int i = 0; i < keys.length; i++) {
 			if (keys[i].equals(key)) {
 				values[i] = value;
 			}
 		}
 		// B. create a String array that is one element longer than the keys
-		String[] longKeys = new String[keys.length];
+		String[] longKeys = new String[keys.length + 1];
 		// C. create an integer array that is one element longer than values
-		int[] longValues = new int[values.length];
+		int[] longValues = new int[values.length + 1];
 		// D. set the last element of the new String array to the passed in key
 		longKeys[longKeys.length] = key;
 		// E. set the last element of the new int array to the passed in value
 		longValues[longValues.length] = value;
 		// F. iterate through the keys and values and copy the elements to the new
 		// arrays
-		String[] newKeys = new String[0];
-		int[] newValues = new int[0];
 		for (int i = 0; i < keys.length; i++) {
-			newKeys[i] = keys[i];
+			keys[i] = longKeys[i];
 		}
 		for (int i = 0; i < values.length; i++) {
-			newValues[i] = values[i];
+			values[i] = longValues[i];
 		}
 		// G. Set the keys and values arrays equal to the new arrays created in steps B
 		// and C.
 		keys = longKeys;
 		values = longValues;
+		
 	}
 
 	// 5. Complete the method so it returns the value located at the passed in key.
@@ -64,7 +63,7 @@ public class StringIntegerPair {
 	// 6. Complete the containsKey method so that it returns true if the
 	// passed in keys is contained in the keys array
 	public boolean containsKey(String key) {
-		for (int i = 0; i < keys.length - 1; i++) {
+		for (int i = 0; i < keys.length; i++) {
 			if (key == keys[i]) {
 				return true;
 			}
@@ -75,7 +74,7 @@ public class StringIntegerPair {
 	// 7. Complete the containsValue method so that it returns true if the
 	// passed in value is contained in the values array
 	public boolean containsValue(int value) {
-		for (int i = 0; i < values.length - 1; i++) {
+		for (int i = 0; i < values.length; i++) {
 			if (value == values[i]) {
 				return true;
 			}
