@@ -46,7 +46,7 @@ public class StringIntegerPair {
 		// and C.
 		keys = longKeys;
 		values = longValues;
-		
+
 	}
 
 	// 5. Complete the method so it returns the value located at the passed in key.
@@ -55,8 +55,15 @@ public class StringIntegerPair {
 		if (key.isEmpty()) {
 			return Integer.MIN_VALUE;
 		} else {
-			int intKey = Integer.parseInt(key);
-			return intKey;
+			int k = 0;
+
+			for (int i = 0; i < keys.length; i++) {
+				if (keys[i].equalsIgnoreCase(key)) {
+					k = values[i];
+
+				}
+			}
+			return k;
 		}
 	}
 
@@ -84,12 +91,12 @@ public class StringIntegerPair {
 
 	// 8. Complete the getKeysMethod so it returns the keys as an array
 	public String[] getKeys() {
-		
-		return null;
+
+		return keys;
 	}
 
 	// 9. Complete the getValues so it returns the values as an array
 	public int[] getValues() {
-		return null;
+		return values;
 	}
 }
