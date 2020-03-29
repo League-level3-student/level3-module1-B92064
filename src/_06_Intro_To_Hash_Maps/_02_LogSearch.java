@@ -1,7 +1,14 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.util.HashMap;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class _02_LogSearch {
+	HashMap<Integer, String> ID = new HashMap<Integer, String>();
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -29,5 +36,25 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
+	public static void main(String[] args) {
+		_02_LogSearch ls = new _02_LogSearch();
+		ls.setup();
+	}
 	
+	public void setup() {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JButton b1 = new JButton();
+		JButton b2 = new JButton();
+		JButton b3 = new JButton();
+		frame.add(panel);
+		panel.add(b1);
+		panel.add(b2);
+		panel.add(b3);
+		String q1string = JOptionPane.showInputDialog("Enter an ID number");
+		int q1 = Integer.parseInt(q1string);
+		String q2 = JOptionPane.showInputDialog("Enter a name");
+		
+		
+	}
 }

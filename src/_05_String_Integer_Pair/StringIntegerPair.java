@@ -24,6 +24,7 @@ public class StringIntegerPair {
 		for (int i = 0; i < keys.length; i++) {
 			if (keys[i].equals(key)) {
 				values[i] = value;
+				return;
 			}
 		}
 		// B. create a String array that is one element longer than the keys
@@ -31,16 +32,16 @@ public class StringIntegerPair {
 		// C. create an integer array that is one element longer than values
 		int[] longValues = new int[values.length + 1];
 		// D. set the last element of the new String array to the passed in key
-		longKeys[longKeys.length] = key;
+		longKeys[longKeys.length - 1] = key;
 		// E. set the last element of the new int array to the passed in value
-		longValues[longValues.length] = value;
+		longValues[longValues.length - 1] = value;
 		// F. iterate through the keys and values and copy the elements to the new
 		// arrays
 		for (int i = 0; i < keys.length; i++) {
-			keys[i] = longKeys[i];
+			longKeys[i] = keys[i];
 		}
 		for (int i = 0; i < values.length; i++) {
-			values[i] = longValues[i];
+			longValues[i] = values[i];
 		}
 		// G. Set the keys and values arrays equal to the new arrays created in steps B
 		// and C.
@@ -58,7 +59,7 @@ public class StringIntegerPair {
 			int k = 0;
 
 			for (int i = 0; i < keys.length; i++) {
-				if (keys[i].equalsIgnoreCase(key)) {
+				if (keys[i].equals(key)) {
 					k = values[i];
 
 				}
