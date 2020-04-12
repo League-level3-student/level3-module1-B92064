@@ -14,6 +14,7 @@ public class _02_LogSearch implements ActionListener {
 	JButton b1 = new JButton();
 	JButton b2 = new JButton();
 	JButton b3 = new JButton();
+	JButton b4 = new JButton();
 
 	/*
 	 * Crate a HashMap of Integers for the keys and Strings for the values. Create a
@@ -48,12 +49,15 @@ public class _02_LogSearch implements ActionListener {
 		panel.add(b1);
 		panel.add(b2);
 		panel.add(b3);
+		panel.add(b4);
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
+		b4.addActionListener(this);
 		b1.setText("Add Entry");
 		b2.setText("Search by ID");
 		b3.setText("View List");
+		b4.setText("Remove Entry");
 		frame.setLocation(1150, 600);
 		frame.pack();
 		frame.setVisible(true);
@@ -71,21 +75,29 @@ public class _02_LogSearch implements ActionListener {
 			String q3string = JOptionPane.showInputDialog("Enter a message ID");
 			if (q3string.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Please input a number");
+			}
+			int q3 = Integer.parseInt(q3string);
+			if (ID.get(q3) == null) {
+				JOptionPane.showMessageDialog(null, "That Entry does not exist.");
 			} else {
-				int q3 = Integer.parseInt(q3string);
-				if (ID.get(q3).isEmpty()) {
-					JOptionPane.showMessageDialog(null, "That Entry does not exist.");
-				} else {
-					JOptionPane.showMessageDialog(null, "ID: " + q3 + " Name: " + ID.get(q3));
-				}
+				JOptionPane.showMessageDialog(null, "ID: " + q3 + " Name: " + ID.get(q3));
 			}
 		} else if (e.getSource() == b3) {
 			String text = new String();
 			for (Integer s : ID.keySet()) {
-				text += "ID: " + s + "Name: " + ID.get(s) + " ";
+				text += "ID: " + s + " Name: " + ID.get(s) + " ";
 			}
 			JOptionPane.showMessageDialog(null, text);
 
+		} else if (e.getSource() == b4) {
+			String q4string = JOptionPane.showInputDialog("Which entry would you like to delete?");
+			int q4 = Integer.parseInt(q4string);
+			if (ID.get(q4) == null) {
+				JOptionPane.showMessageDialog(null, "That Entry does not exist.");
+			} else {
+				ID.remove(q4);
+				JOptionPane.showMessageDialog(null, "Entry " + q4 + " has been removed.");
+			}
 		}
 	}
 }
